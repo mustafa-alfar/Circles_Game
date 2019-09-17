@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="assets/css/circles.css">
+	<!-- Load the Paper.js library -->
+	<script type="text/javascript" src="assets/js/lib/paper-full.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.13/howler.core.min.js">
+	</script>	<!-- Define inlined PaperScript associate it with myCanvas -->
+	<script type="text/paperscript" canvas="myCanvas">
+	
+	var maxWidth = view.size.width;
+	var maxHeight = view.size.height;
+	var text = new PointText({
+	    point: [maxWidth/4,maxHeight/2],
+	    content: 'Press any key, A to Z and turn up speakers',
+	    fillColor: 'white',
+	    fontFamily: 'Courier New',
+	    fontWeight: 'bold',
+	    fontSize: 25
+	});
+
+	var keyData = {
+		a: {
+			color : "#111",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/bubbles.mp3"]
+			})
+		},
+
+		b: {
+			color : "#222",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/clay.mp3"]
+			})
+		},
+
+		c: {
+			color : "#333",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/confetti.mp3"]
+			})
+		},
+
+		d: {
+			color : "#444",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/corona.mp3"]
+			})
+		},
+
+		e: {
+			color : "#555",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/dotted-spiral.mp3"]
+			})
+		},
+
+		f: {
+			color : "#600",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/flash-1.mp3"]
+			})
+		},
+
+		g: {
+			color : "#650",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/flash-2.mp3"]
+			})
+		},
+
+		h: {
+			color : "#700",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/flash-3.mp3"]
+			})
+		},
+
+		i: {
+			color : "#750",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/glimmer.mp3"]
+			})
+		},
+
+		j: {
+			color : "#800",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/moon.mp3"]
+			})
+		},
+
+		k: {
+			color : "#852",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/pinwheel.mp3"]
+			})
+		},
+
+		l: {
+			color : "#900",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/piston-1.mp3"]
+			})
+		},
+
+		m: {
+			color : "#950",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/piston-2.mp3"]
+			})
+		},
+
+		n: {
+			color : "#A00",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/piston-3.mp3"]
+			})
+		},
+
+		o: {
+			color : "#AAA",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/prism-1.mp3"]
+			})
+		},
+
+		p: {
+			color : "#BC0",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/prism-2.mp3"]
+			})
+		},
+
+		q: {
+			color : "#BBB",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/prism-3.mp3"]
+			})
+		},
+
+		r: {
+			color : "#C00",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/wipe.mp3"]
+			})
+		},
+
+		s: {
+			color : "#CCC",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/splits.mp3"]
+			})
+		},
+
+		t: {
+			color : "#D00",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/squiggle.mp3"]
+			})
+		},
+
+		u: {
+			color : "#DDD",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/strike.mp3"]
+			})
+		},
+
+		v: {
+			color : "#EAF",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/zig-zag.mp3"]
+			})
+		},
+
+		w: {
+			color : "#E00",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/suspension.mp3"]
+			})
+		},
+
+		x: {
+			color : "#EEE",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/timer.mp3"]
+			})
+		},
+
+		y: {
+			color : "#F00",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/veil.mp3"]
+			})
+		},
+
+		z: {
+			color : "#FFF",
+			sound : new Howl({
+  			src: ["assets/js/lib/sound/ufo.mp3"]
+			})
+		}
+		}
+	
+		var circles = [];
+			function onKeyDown(event) {
+				if(keyData[event.key]){
+				text.visible = false;
+				var maxPoint = new Point(view.size.width,view.size.height);
+				var randPoint = Point.random();
+				var point = randPoint * maxPoint ;
+				var newCircle = new Path.Circle(point,250);
+				newCircle.fillColor = keyData[event.key].color;
+				keyData[event.key].sound.play();
+
+				circles.push(newCircle);
+				console.log(event.key);
+			}
+			}
+
+			function onFrame(event) {
+				for(var i=0; i<circles.length;i++){
+					circles[i].fillColor.hue += 1;
+					circles[i].scale(0.92);
+		
+			}	}
+		
+
+	
+	</script>
+</head>
+<body>
+
+	<canvas id="myCanvas" resize><p class="message">Press any key, A to Z and turn up speakers</p></canvas>
+
+</body>
+</html>
